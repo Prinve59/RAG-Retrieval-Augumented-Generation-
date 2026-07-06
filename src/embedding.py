@@ -28,4 +28,12 @@ class EmbeddingPipeline:
         embeddings=self.model.encode(texts,show_progress_bar=True)
         print(f"[INFO] generated embeddings with shape:{embeddings.shape}")
         return embeddings
-        
+
+"""
+#useage
+if __name__=="__main__":
+    doc=load_all_documents("data")
+    chunks=EmbeddingPipeline().chunk_documents(doc)
+    vector_chunks=EmbeddingPipeline().embed_chunks(chunks)
+    print(vector_chunks)
+"""
