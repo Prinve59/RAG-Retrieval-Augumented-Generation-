@@ -51,7 +51,7 @@ class FaissVectorStore:
         meta_path=os.path.join(self.persist_dir,"metadata.pkl")
         self.index = faiss.read_index(faiss_path)
         with open(meta_path,"rb") as f:
-            pickle.load(f)
+            self.metadata=pickle.load(f)
         print(f"[INFO] loaded faiss index and metadata from {self.persist_dir}")
 
     def search(self,query_embedding:np.ndarray,top_k:int=5):
@@ -66,3 +66,15 @@ class FaissVectorStore:
         print(f"[INFO] quering vector store about {query_text}")
         query_emb=self.model.encode([query_text]).astype('float32')
         return self.search(query_emb,top_k)
+
+
+
+"""
+#useage
+if __name__=="__main__":
+    doc=load_all_documents("data")
+    vec_store=FaissVectorStore();
+    emb=vec_store.build_documents(doc)
+    vec_store.load()
+    print(vec_store.query("The Pencil Maker took the pencil aside and said what",top_k=3))
+"""
